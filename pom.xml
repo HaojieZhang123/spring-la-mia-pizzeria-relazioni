@@ -11,7 +11,7 @@
 	<groupId>org.lessons.java</groupId>
 	<artifactId>spring-la-mia-pizzeria-relazioni</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-la-mia-pizzeria-crud</name>
+	<name>spring-la-mia-pizzeria-relazioni</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

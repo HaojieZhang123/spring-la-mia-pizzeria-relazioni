@@ -1,38 +1,32 @@
-# EX Spring La Mia Pizzeria - 1
+# EX Spring La Mia Pizzeria - One to Many
 
 ### Consegna
-**Repo**: `spring-la-mia-pizzeria-crud`
+**Repo**: `spring-la-mia-pizzeria-relazioni`
 
-Questo esercizio è diviso in vari step, che vanno seguiti in maniera incrementale, essendo propedeutici.
+**IMPORTANTE:**
+> Ricordatevi di sganciare la vostra vecchia repository e di crearne una nuova per questo esercizio, che prosegue il lavoro della pizzeria, dove lo avevate lasciato.
 
-### Step 1
 
-Dobbiamo realizzare un’applicazione web che ci aiuti a gestire la nostra pizzeria.
-Abbiamo bisogno di creare la prima pagina (index) dove mostriamo tutte le pizze che prepariamo. Nei prossimi giorni implementeremo il resto dei metodi per le CRUD.
+Nuova importante funzionalità : le offerte speciali!
+In alcuni momenti potremmo voler vendere le nostre pizze a un prezzo scontato.
 
-Una pizza avrà le seguenti informazioni :
-- un id
-- un nome
-- una descrizione
-- una foto (url)
-- un prezzo
+Dobbiamo quindi predisporre tutto il codice necessario per poter collegare un’offerta speciale a una pizza (in una relazione 1 a molti, cioè un’offerta speciale può essere collegata a una sola pizza, e una pizza può essere collegata a più offerte speciali).
 
-Creiamo il database, repository e l'entity per gestire le CRUD delle pizze.
 
-Implementiamo quindi il controller con il metodo index che restituisce una view per mostrare l’elenco delle pizze caricate dal database (possiamo creare una tabella con bootstrap o una qualche grafica a nostro piacimento che mostri questo elenco... con un po’ di creatività se vogliamo!)
+L’offerta speciale avrà :
+- una data di inizio
+- una data di fine
+- un titolo
 
-L’elenco potrebbe essere vuoto: in quel caso dobbiamo mostrare un messaggio che indichi all’utente che non ci sono pizze presenti nella nostra applicazione.
+La pagina di dettaglio della singola pizza mostrerà l’elenco delle offerte collegate e avrà un bottone “Crea nuova offerta speciale” per aggiungerne una nuova.
 
-Gestiamo i componenti riutilizzabili con i fragments.
+Accanto ad ogni offerta speciale è previsto un bottone che mi porterà a una pagina per modificarla.
 
-### Step 2
+Buon lavoro!! 🙂
 
-Mostriamo una singola pizza.
+BONUS: 
+- Creare la show dell'offerta speciale
+- Creare la delete dell'offerta speciale
 
-Ogni pizza dell’elenco avrà quindi un pulsante che se cliccato ci porterà a una pagina che mostrerà i dettagli della pizza scelta. Dobbiamo quindi inviare l’id come parametro dell’URL, recuperarlo nel metodo del controller, caricare i dati della pizza ricercata e passarli come model.
-
-La view a quel punto li mostrerà all’utente con la grafica che preferiamo.
-
-### Step 3 - Bonus
-
-Nella pagina con l’elenco delle pizze aggiungiamo un campo di testo che se compilato filtrerà le pizze (lato server) aventi come titolo quello inserito dall’utente.
+Esercizio di stile
+- Creare la index di tutte le offerte speciali. Non ha senso, ma è un esercizio di stile.
