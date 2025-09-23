@@ -1,11 +1,13 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +35,9 @@ public class Pizza {
     @NotNull(message = "Il prezzo della pizza non può essere vuoto")
     @Min(value = 0, message = "Il prezzo della pizza non puo' essere negativo")
     private BigInteger price;
+
+    @OneToMany(mappedBy = "pizza")
+    private List<Offer> offers;
 
     // setters and getters
     public Integer getId() {
@@ -73,6 +78,14 @@ public class Pizza {
 
     public void setPrice(BigInteger price) {
         this.price = price;
+    }
+
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
 
 }

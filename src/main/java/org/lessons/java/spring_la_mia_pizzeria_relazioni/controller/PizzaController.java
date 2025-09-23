@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PizzaController {
 
     @Autowired
-    private PizzaRepository repository;
+    private PizzaRepository bookRepository;
 
     @GetMapping("/")
     public String index(Model model, @RequestParam(required = false) String name) {
@@ -31,9 +31,9 @@ public class PizzaController {
         List<Pizza> pizzas;
 
         if (name != null) {
-            pizzas = repository.findByNameContainingIgnoreCase(name);
+            pizzas = bookRepository.findByNameContainingIgnoreCase(name);
         } else {
-            pizzas = repository.findAll();
+            pizzas = bookRepository.findAll();
         }
 
         if (pizzas.isEmpty()) {
@@ -48,7 +48,7 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
 
-        Pizza pizza = repository.findById(id).get();
+        Pizza pizza = bookRepository.findById(id).get();
 
         // .get() will throw an exception if the pizza is not found, not null.
         // will wait for future lessons to handle this.
@@ -76,7 +76,7 @@ public class PizzaController {
             return "pizzas/create";
         }
 
-        repository.save(formPizza);
+        bookRepository.save(formPizza);
 
         return "redirect:/pizzas";
     }
@@ -84,7 +84,7 @@ public class PizzaController {
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") Integer id) {
 
-        model.addAttribute("pizza", repository.findById(id).get());
+        model.addAttribute("pizza", bookRepository.findById(id).get());
 
         return "pizzas/edit";
 
@@ -97,14 +97,14 @@ public class PizzaController {
             return "pizzas/edit";
         }
 
-        repository.save(formPizza);
+        bookRepository.save(formPizza);
 
         return "redirect:/pizzas";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
-        repository.deleteById(id);
+        bookRepository.deleteById(id);
 
         return "redirect:/pizzas";
     }

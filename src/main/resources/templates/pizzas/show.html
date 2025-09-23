@@ -15,6 +15,21 @@
         <p>Price: <span th:text="${pizza.price}"></span></p>
     </th:block>
 
+    <h2>Offers</h2>
+
+    <th:block th:if="${#lists.isEmpty(pizza.offers)}">
+        <p>No offers available for this pizza.</p>
+    </th:block>
+    <th:block th:unless="${#lists.isEmpty(pizza.offers)}">
+        <ul>
+            <li th:each="offer : ${pizza.offers}">
+                <span th:text="${offer.description}"></span> -
+                <span th:text="${offer.discount}"></span>%
+            </li>
+        </ul>
+
+    </th:block>
+
 </body>
 
 </html>
