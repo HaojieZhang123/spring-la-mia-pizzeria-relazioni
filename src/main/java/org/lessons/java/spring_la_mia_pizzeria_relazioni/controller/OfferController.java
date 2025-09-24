@@ -1,15 +1,51 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.controller;
 
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.OfferRepository;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
 
     @Autowired
+    private PizzaRepository pizzaRepository;
+
+    @Autowired
     private OfferRepository offerRepository;
 
+    @GetMapping("/create/{id}")
+    public String create(@PathVariable("id") Integer id, Model model) {
+        Offer newOffer = new Offer();
+        newOffer.setPizza(pizzaRepository.findById(id).get());
+
+        model.addAttribute("offer", newOffer);
+
+        return "offers/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("offer") Offer formOffer,
+            BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "offers/create";
+        } else {
+            // formOffer.setPizza(pizzaRepository.findById(id).get());
+            offerRepository.save(formOffer);
+            return "redirect:/pizzas/" + formOffer.getPizza().getId();
+        }
+    }
 }

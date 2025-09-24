@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "offers")
@@ -19,16 +20,14 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "La data di inizio non può essere vuota")
+    @NotNull(message = "La data di inizio non può essere vuota")
     private LocalDate startDate;
 
-    @NotBlank(message = "La data di fine non può essere vuota")
+    @NotNull(message = "La data di fine non può essere vuota")
     private LocalDate endDate;
 
     @NotBlank(message = "Il titolo non può essere vuoto")
     private String title;
-
-    // why no discounted price here?
 
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)

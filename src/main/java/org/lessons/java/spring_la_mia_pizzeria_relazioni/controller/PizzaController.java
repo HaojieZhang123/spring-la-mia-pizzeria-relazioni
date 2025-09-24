@@ -25,7 +25,7 @@ public class PizzaController {
     @Autowired
     private PizzaRepository bookRepository;
 
-    @GetMapping("/")
+    @GetMapping()
     public String index(Model model, @RequestParam(required = false) String name) {
 
         List<Pizza> pizzas;

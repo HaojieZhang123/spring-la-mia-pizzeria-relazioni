@@ -23,12 +23,17 @@
     <th:block th:unless="${#lists.isEmpty(pizza.offers)}">
         <ul>
             <li th:each="offer : ${pizza.offers}">
-                <span th:text="${offer.description}"></span> -
-                <span th:text="${offer.discount}"></span>%
+                <span th:text="${offer.title}"></span>
             </li>
         </ul>
 
     </th:block>
+
+    <a th:href="@{/pizzas}">Back to all pizzas</a>
+
+    <br>
+
+    <a th:href="@{/offers/create/{id}(id=${pizza.id})}">Create a new offer</a>
 
 </body>
 
