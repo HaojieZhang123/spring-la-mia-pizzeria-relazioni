@@ -10,7 +10,7 @@
     <h1 th:unless="${edit}">Create a new ingredient</h1>
     <h1 th:if="${edit}">Edit ingredient</h1>
 
-    <form th:action="${edit} ? @{/ingredients/edit/{id}(id=${offer.id})} : @{/ingredients/create}"
+    <form th:action="${edit} ? @{/ingredients/edit/{id}(id=${ingredient.id})} : @{/ingredients/create}"
         th:object="${ingredient}" method="post">
 
         <!-- ingredient details -->
