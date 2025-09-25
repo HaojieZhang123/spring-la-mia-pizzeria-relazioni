@@ -45,7 +45,7 @@ public class OfferController {
 
         model.addAttribute("offer", newOffer);
 
-        return "offers/create";
+        return "offers/create-or-edit";
     }
 
     @PostMapping("/create")
@@ -53,7 +53,7 @@ public class OfferController {
             BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "offers/create";
+            return "offers/create-or-edit";
         } else {
             // formOffer.setPizza(pizzaRepository.findById(id).get());
             offerRepository.save(formOffer);
@@ -65,8 +65,9 @@ public class OfferController {
     public String edit(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("offer", offerRepository.findById(id).get());
+        model.addAttribute("edit", true);
 
-        return "offers/edit";
+        return "offers/create-or-edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -74,7 +75,8 @@ public class OfferController {
             BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "offers/edit";
+            model.addAttribute("edit", true);
+            return "offers/create-or-edit";
         } else {
             offerRepository.save(formOffer);
             return "redirect:/pizzas/" + formOffer.getPizza().getId();

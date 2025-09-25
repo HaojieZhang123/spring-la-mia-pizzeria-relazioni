@@ -2,14 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit offer</title>
+    <title>Create a new offer</title>
 </head>
 
 <body>
 
-    <h1>Edit offer [[${offer.title}]] for pizza [[${offer.getPizza().getName()}]]</h1>
+    <h1 th:unless="${edit}">Create a new offer for pizza [[${offer.getPizza().getName()}]]</h1>
+    <h1 th:if="${edit}">Edit offer [[${offer.title}]] for pizza [[${offer.getPizza().getName()}]]</h1>
 
-    <form th:action="@{/offers/edit/{id}(id=${offer.id})}" th:object="${offer}" method="post">
+    <form th:action="${edit} ? @{/offers/edit/{id}(id=${offer.id})} : @{/offers/create}" th:object="${offer}"
+        method="post">
 
         <!-- hidden pizza id -->
         <input type="hidden" th:field="*{pizza}">
@@ -45,7 +47,9 @@
             </div>
         </div>
 
-        <button type="submit">Edit Offer</button>
+        <button type="submit">Submit</button>
+
+        <button type="reset">Reset all fields</button>
 
     </form>
 
