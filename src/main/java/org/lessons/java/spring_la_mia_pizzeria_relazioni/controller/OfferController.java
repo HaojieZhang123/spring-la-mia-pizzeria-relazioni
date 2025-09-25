@@ -54,4 +54,25 @@ public class OfferController {
             return "redirect:/pizzas/" + formOffer.getPizza().getId();
         }
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+
+        model.addAttribute("offer", offerRepository.findById(id).get());
+
+        return "offers/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("offer") Offer formOffer,
+            BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "offers/edit";
+        } else {
+            offerRepository.save(formOffer);
+            return "redirect:/pizzas/" + formOffer.getPizza().getId();
+        }
+    }
+
 }
