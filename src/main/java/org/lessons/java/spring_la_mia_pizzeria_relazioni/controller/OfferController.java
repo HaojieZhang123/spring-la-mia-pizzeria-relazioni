@@ -26,6 +26,12 @@ public class OfferController {
     @Autowired
     private OfferRepository offerRepository;
 
+    @GetMapping
+    public String index(Model model) {
+        model.addAttribute("offers", offerRepository.findAll());
+        return "offers/index";
+    }
+
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("offer", offerRepository.findById(id).get());
