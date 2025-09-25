@@ -14,7 +14,9 @@
     <hr>
 
     <h3>Create a new ingredient</h3>
-    <a th:href="@{/ingredients/create}"></a>
+    <a th:href="@{/ingredients/create}">
+        <button>Create ingredient</button>
+    </a>
 
     <hr>
 
@@ -52,6 +54,12 @@
     </table>
 
     <div th:unless="${ingredients.size() > 0}">No ingredients available</div>
+
+    <hr>
+
+    <a href="/pizzas">
+        <button>Back to pizzas</button>
+    </a>
 
 </body>
 
