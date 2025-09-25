@@ -3,6 +3,7 @@ package org.lessons.java.spring_la_mia_pizzeria_relazioni.controller;
 import java.util.List;
 
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.IngredientRepository;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PizzaController {
 
     @Autowired
-    private PizzaRepository bookRepository;
+    private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     @GetMapping()
     public String index(Model model, @RequestParam(required = false) String name) {
@@ -31,9 +35,9 @@ public class PizzaController {
         List<Pizza> pizzas;
 
         if (name != null) {
-            pizzas = bookRepository.findByNameContainingIgnoreCase(name);
+            pizzas = pizzaRepository.findByNameContainingIgnoreCase(name);
         } else {
-            pizzas = bookRepository.findAll();
+            pizzas = pizzaRepository.findAll();
         }
 
         if (pizzas.isEmpty()) {
@@ -48,7 +52,7 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
 
-        Pizza pizza = bookRepository.findById(id).get();
+        Pizza pizza = pizzaRepository.findById(id).get();
 
         // .get() will throw an exception if the pizza is not found, not null.
         // will wait for future lessons to handle this.
@@ -66,6 +70,7 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         return "pizzas/create-or-edit";
     }
 
@@ -76,7 +81,7 @@ public class PizzaController {
             return "pizzas/create";
         }
 
-        bookRepository.save(formPizza);
+        pizzaRepository.save(formPizza);
 
         return "redirect:/pizzas";
     }
@@ -84,7 +89,8 @@ public class PizzaController {
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") Integer id) {
 
-        model.addAttribute("pizza", bookRepository.findById(id).get());
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("edit", true);
 
         return "pizzas/create-or-edit";
@@ -99,14 +105,14 @@ public class PizzaController {
             return "pizzas/create-or-edit";
         }
 
-        bookRepository.save(formPizza);
+        pizzaRepository.save(formPizza);
 
         return "redirect:/pizzas";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
-        bookRepository.deleteById(id);
+        pizzaRepository.deleteById(id);
 
         return "redirect:/pizzas";
     }

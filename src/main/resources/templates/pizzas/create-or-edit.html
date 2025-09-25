@@ -58,6 +58,14 @@
             </div>
         </div>
 
+        <div>
+            <p>Ingredients</p>
+            <div th:each="ingredient : ${ingredients}">
+                <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}"
+                    th:text="${ingredient.name}" />
+            </div>
+        </div>
+
         <button type="submit">Submit</button>
 
         <button type="reset">Reset all fields</button>
