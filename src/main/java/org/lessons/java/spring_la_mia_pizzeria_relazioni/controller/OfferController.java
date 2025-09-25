@@ -75,4 +75,11 @@ public class OfferController {
         }
     }
 
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+        Offer offerToDelete = offerRepository.findById(id).get();
+        offerRepository.delete(offerToDelete);
+        return "redirect:/pizzas/" + offerToDelete.getPizza().getId();
+    }
+
 }
